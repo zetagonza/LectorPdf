@@ -2,11 +2,41 @@ import streamlit as st
 import pandas as pd
 import fitz  # PyMuPDF
 import re
+# ===== CSS PARA ESTILO =====
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #ffe6f2; /* Rosa claro */
+    }
+    h1 {
+        color: #cc0066; /* Rosa fuerte para títulos */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-st.title("Extracción de CUIT, Jurisdicción y 4º Valor desde PDF")
+# ===== TÍTULO =====
+st.title("😼 App para vaguitas 😼")
+
+# ===== BOTÓN INTERACTIVO =====
+if st.button("💖"):
+    st.success("yo tambien te amo 😻")
+else:
+    st.info("😿")
+
+# ===== IMAGEN =====
+# Desde URL
+st.image("https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
+         caption="Ponete a laburar loco", use_column_width=True)
+
+# También podés cargar imágenes locales, ej:
+# st.image("mi_imagen.png", caption="Imagen local", use_column_width=True)
+st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
 # Subir PDF
-uploaded_file = st.file_uploader("Sube tu archivo PDF", type=["pdf"])
+uploaded_file = st.file_uploader("Poner aca el PDF", type=["pdf"])
 
 if uploaded_file is not None:
     # Leer PDF con PyMuPDF
@@ -86,3 +116,4 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
