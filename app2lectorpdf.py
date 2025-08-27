@@ -2,51 +2,93 @@ import streamlit as st
 import pandas as pd
 import fitz  # PyMuPDF
 import re
-# --- CSS personalizado ---
-st.markdown("""
+# ===== CSS PARA ESTILO =====
+st.markdown(
+    """
     <style>
-    body {
-        background-color: pink;
-        color: black; /* todos los textos en negro */
+    /* Fondo rosa de la app */
+    .stApp {
+        background-color: #ffe6f2;
     }
-    .stButton button {
-        display: block;
-        margin: 0 auto; /* centrar el botón */
-        background-color: white;
-        color: black;
-        font-weight: bold;
-        border-radius: 12px;
-        padding: 10px 20px;
+
+    /* Forzar todos los textos en negro */
+    body, .stApp, h1, h2, h3, h4, h5, h6, p, div, span, a {
+        color: black !important;
     }
-    .animated-text {
-        font-size: 24px;
-        font-weight: bold;
+
+    /* Estilo y tamaño del título */
+    .streamlit-expanderHeader, .reportview-container .main .block-container h1 {
+        color: black !important;
+    }
+
+    /* Botón grande (aplica a botones de Streamlit) */
+    div.stButton > button {
+        background-color: #ff66b2;
+        color: white;
+        font-size: 28px;
+        padding: 12px 36px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    }
+    div.stButton > button:hover {
+        transform: scale(1.05);
+        background-color: #cc0066;
+    }
+
+    /* Animación heartbeat para el texto */
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.18); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.12); }
+        100% { transform: scale(1); }
+    }
+    .heartbeat {
+        animation: heartbeat 1s ease-in-out infinite;
+        font-size: 22px;
+        font-weight: 700;
         text-align: center;
-        animation: fadeIn 2s infinite alternate;
-        color: black;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0.2; }
-        to { opacity: 1; }
+        color: black !important; /* texto animado también negro */
+        margin-top: 10px;
     }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
-# --- Estado del botón ---
-if "show_gif" not in st.session_state:
-    st.session_state.show_gif = False
+# ===== TITULO =====
+st.title("😼 App para vaguitas 😼")
 
-# --- Botón Toggle ---
-if st.button("Mostrar / Ocultar GIF"):
-    st.session_state.show_gif = not st.session_state.show_gif
+# ===== Estado toggle en session_state =====
+if "heart_on" not in st.session_state:
+    st.session_state.heart_on = False
 
-# --- Texto animado ---
-st.markdown('<p class="animated-text">Bienvenido a mi App 🎉</p>', unsafe_allow_html=True)
+# ===== Botón centrado (usamos columnas para centrar de forma robusta) =====
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    # Cuando se hace click, toggleeamos el estado
+    if st.button("💖", key="heart_button"):
+        st.session_state.heart_on = not st.session_state.heart_on
 
-# --- Mostrar GIF si está activado ---
-if st.session_state.show_gif:
-    st.image("https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-             use_container_width=False, width=250)
+# ===== Texto animado o mensaje alternativo =====
+if st.session_state.heart_on:
+    st.markdown("<p class='heartbeat'>yo tambien te amo 😻</p>", unsafe_allow_html=True)
+else:
+    st.markdown("<p style='text-align:center; font-size:18px;'>😿</p>", unsafe_allow_html=True)
+
+# ===== IMAGEN REDUCIDA (centrada) =====
+img_url = "https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg"
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(img_url, caption="Ponete a laburar loco", width=280)
+
+# ===== GIF (centrado) =====
+gif_url = "https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif"
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(gif_url, caption="Modo vago activado 🐱💻", width=320)
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
 # Subir PDF
