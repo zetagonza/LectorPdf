@@ -85,9 +85,14 @@ with col2:
     if st.button("😿"):
         st.session_state.clicked = not st.session_state.clicked
 
-# --- Texto neon ---
+# --- Texto neon y GIF si presionado ---
 if st.session_state.clicked:
     st.markdown("<h2 class='neon-text'>Yo tambien te amo 😻</h2>", unsafe_allow_html=True)
+    st.image(
+        "https://i.pinimg.com/originals/cd/f3/0b/cdf30b78e8754b1499f2de9d5a63a8fb.gif",
+        width=250,
+        caption="Ponete a laburar loco"
+    )
 # --- Columna derecha ---
 with col3:
     st.image("https://img1.picmix.com/output/pic/normal/2/5/7/0/10140752_792ad.gif", 
@@ -176,6 +181,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
