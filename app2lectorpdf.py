@@ -49,17 +49,35 @@ with col2:
 # --- CSS para temblor y neon ---
 st.markdown("""
 <style>
-/* Temblor */
+/* Temblor 2s cada 5s */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-5px); }
   40%, 80% { transform: translateX(5px); }
 }
 
-/* Aplicar temblor solo al primer botón */
-div.stButton > button:first-child {
-    animation: shake 0.5s infinite;
-    animation-delay: 3s;
+.shake-button {
+    animation: shake 2s;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+
+/* Hacer que el temblor reaparezca cada 5s */
+@keyframes shake-loop {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.shake-loop {
+    animation: shake-loop 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 5s;
+    animation-name: shake-loop;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 /* Neon + respiración */
@@ -80,9 +98,15 @@ div.stButton > button:first-child {
 if "clicked" not in st.session_state:
     st.session_state.clicked = False
 
-# --- Botón real de Streamlit ---
-if st.button("😿"):
-    st.session_state.clicked = not st.session_state.clicked
+# --- Botón centrado ---
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
+    if st.session_state.clicked:
+        if st.button("😿"):
+            st.session_state.clicked = not st.session_state.clicked
+    else:
+        # Botón con clase CSS shake-loop
+        st.markdown('<div style="text-align:center"><button class="shake-loop">😿</button></div>', unsafe_allow_html=True)
 
 # --- Mostrar texto neon si presionado ---
 if st.session_state.clicked:
@@ -175,6 +199,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
