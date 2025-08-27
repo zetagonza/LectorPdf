@@ -24,33 +24,33 @@ col1, col2, col3 = st.columns([1, 2, 1])  # proporciones: izquierda - centro - d
 
 # --- Columna izquierda ---
 with col1:
-    st.image("https://gifdb.com/images/high/cat-cute-dancing-34a3k5umj9vty2x7.gif", 
+    st.image("https://i.pinimg.com/originals/7f/9e/20/7f9e2048d80751987ec1101fd7142c3e.gif", 
              caption="uwu", 
              use_container_width=True)
 
 # --- Columna central ---
 with col2:
-    st.markdown("## 🐱 Bienvenido a mi App con Gatitos 🐱")
+    st.markdown("## 🐱 App para vaguitas 🐱")
     
     if "clicked" not in st.session_state:
         st.session_state.clicked = False
 
-    if st.button("Presioname!"):
+    if st.button("😿"):
         st.session_state.clicked = not st.session_state.clicked  # toggle
 
     if st.session_state.clicked:
         st.markdown(
-            "<h2 style='animation: pulse 1s infinite;'>¡Botón presionado! 😺</h2>",
+            "<h2 style='animation: pulse 1s infinite;'>Yo tambien te amo 😻</h2>",
             unsafe_allow_html=True,
         )
         st.image("https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-                 caption="Gato trabajando",
+                 caption="uwu",
                  width=250)
 
 # --- Columna derecha ---
 with col3:
-    st.image("https://gifdb.com/images/high/cute-cat-silly-dance-0w6l6e0h6q3dmkfq.gif", 
-             caption="Otro gatito", 
+    st.image("https://img1.picmix.com/output/pic/normal/2/5/7/0/10140752_792ad.gif", 
+             caption="💗", 
              use_container_width=True)
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
@@ -135,6 +135,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
