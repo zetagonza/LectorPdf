@@ -7,29 +7,26 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #ffe6f2; /* Fondo rosa claro */
+        background-color: #ffe6f2; /* Rosa claro */
+        color: black; /* Texto en negro */
     }
-    h1 {
-        color: #cc0066; /* Rosa fuerte para títulos */
-        text-align: center;
+    h1, h2, h3, h4, h5, h6, p, div {
+        color: black !important; /* Forzar textos en negro */
     }
     /* Centrar el botón */
-    .stButton > button {
+    div.stButton > button {
         display: block;
         margin: 0 auto;
-        font-size: 30px; /* Botón más grande */
-        padding: 15px 40px;
-        border-radius: 12px;
         background-color: #ff66b2;
         color: white;
+        font-size: 24px;
+        padding: 15px 40px;
+        border-radius: 12px;
+        transition: transform 0.2s ease-in-out;
     }
-    /* Animación para el texto */
-    .animated-text {
-        animation: fadeIn 2s ease-in-out infinite alternate;
-    }
-    @keyframes fadeIn {
-        from {opacity: 0.3; transform: scale(0.95);}
-        to {opacity: 1; transform: scale(1.05);}
+    div.stButton > button:hover {
+        transform: scale(1.1);
+        background-color: #cc0066;
     }
     </style>
     """,
@@ -39,23 +36,23 @@ st.markdown(
 # ===== TÍTULO =====
 st.title("😼 App para vaguitas 😼")
 
-# ===== BOTÓN INTERACTIVO =====
+# ===== BOTÓN INTERACTIVO (centrado) =====
 if st.button("💖"):
-    st.markdown("<h3 class='animated-text'>yo tambien te amo 😻</h3>", unsafe_allow_html=True)
+    st.success("yo tambien te amo 😻")
 else:
     st.info("😿")
 
-# ===== IMAGEN REDUCIDA =====
+# ===== IMAGEN (más chica) =====
 st.image(
     "https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
-    caption=".",
-    width=250  # Ajustamos tamaño fijo
+    caption="uwu",
+    width=300  # tamaño reducido
 )
 
 # ===== GIF =====
 st.image(
     "https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-    caption="Ponete a laburar loco 🐱‍💻",
+    caption="Ponete a laburar loco 🐱💻",
     width=300
 )
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
@@ -141,6 +138,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
