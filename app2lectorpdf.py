@@ -46,7 +46,7 @@ st.markdown("""
 with col2:
     st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
-  # --- CSS para el temblor ---
+# --- CSS para temblor de botón ---
 st.markdown("""
 <style>
 @keyframes shake {
@@ -55,48 +55,23 @@ st.markdown("""
   40%, 80% { transform: translateX(5px); }
 }
 
-/* Aplica la animación a los botones solo si no están presionados */
-button.shake-button {
+.shake-button {
     animation: shake 0.5s infinite;
-    animation-delay: 3s; /* comienza cada 3 segundos */
+    animation-delay: 3s;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# --- Botón con temblor si no está presionado ---
+# --- Estado del botón ---
 if "clicked" not in st.session_state:
     st.session_state.clicked = False
 
+# --- Botón con animación si no fue presionado ---
 if not st.session_state.clicked:
-    # Botón con clase CSS 'shake-button'
     st.markdown('<button class="shake-button">😿</button>', unsafe_allow_html=True)
 else:
-    # Botón normal toggle
     if st.button("😿"):
         st.session_state.clicked = not st.session_state.clicked
-
-
-    if st.session_state.clicked:
-        st.markdown(
-            """
-            <style>
-            @keyframes pulse {
-                0% { transform: scale(1); color: black; }
-                50% { transform: scale(1.2); color: black; }
-                100% { transform: scale(1); color: black; }
-            }
-            .pulse-text {
-                animation: pulse 1s infinite;
-                text-align: center;
-            }
-            </style>
-            <h2 class='pulse-text'>Yo tambien te amo 😻</h2>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.image("https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-                 caption="Ponete a laburar loco",
-                 width=250)
 
 # --- Columna derecha ---
 with col3:
@@ -186,6 +161,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
