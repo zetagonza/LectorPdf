@@ -2,59 +2,51 @@ import streamlit as st
 import pandas as pd
 import fitz  # PyMuPDF
 import re
-# ===== CSS PARA ESTILO =====
-st.markdown(
-    """
+# --- CSS personalizado ---
+st.markdown("""
     <style>
-    .stApp {
-        background-color: #ffe6f2; /* Rosa claro */
-        color: black; /* Texto en negro */
+    body {
+        background-color: pink;
+        color: black; /* todos los textos en negro */
     }
-    h1, h2, h3, h4, h5, h6, p, div {
-        color: black !important; /* Forzar textos en negro */
-    }
-    /* Centrar el botón */
-    div.stButton > button {
+    .stButton button {
         display: block;
-        margin: 0 auto;
-        background-color: #ff66b2;
-        color: white;
-        font-size: 24px;
-        padding: 15px 40px;
+        margin: 0 auto; /* centrar el botón */
+        background-color: white;
+        color: black;
+        font-weight: bold;
         border-radius: 12px;
-        transition: transform 0.2s ease-in-out;
+        padding: 10px 20px;
     }
-    div.stButton > button:hover {
-        transform: scale(1.1);
-        background-color: #cc0066;
+    .animated-text {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        animation: fadeIn 2s infinite alternate;
+        color: black;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0.2; }
+        to { opacity: 1; }
     }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
-# ===== TÍTULO =====
-st.title("😼 App para vaguitas 😼")
+# --- Estado del botón ---
+if "show_gif" not in st.session_state:
+    st.session_state.show_gif = False
 
-# ===== BOTÓN INTERACTIVO (centrado) =====
-if st.button("💖"):
-    st.success("yo tambien te amo 😻")
-else:
-    st.info("😿")
+# --- Botón Toggle ---
+if st.button("Mostrar / Ocultar GIF"):
+    st.session_state.show_gif = not st.session_state.show_gif
 
-# ===== IMAGEN (más chica) =====
-st.image(
-    "https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
-    caption="uwu",
-    width=300  # tamaño reducido
-)
+# --- Texto animado ---
+st.markdown('<p class="animated-text">Bienvenido a mi App 🎉</p>', unsafe_allow_html=True)
 
-# ===== GIF =====
-st.image(
-    "https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-    caption="Ponete a laburar loco 🐱💻",
-    width=300
-)
+# --- Mostrar GIF si está activado ---
+if st.session_state.show_gif:
+    st.image("https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
+             use_container_width=False, width=250)
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
 # Subir PDF
@@ -138,6 +130,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
