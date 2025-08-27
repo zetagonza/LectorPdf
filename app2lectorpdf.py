@@ -46,7 +46,7 @@ st.markdown("""
 with col2:
     st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
-# --- CSS para temblor de botón y neon con respiración ---
+# --- CSS para temblor y neon ---
 st.markdown("""
 <style>
 /* Temblor */
@@ -55,7 +55,9 @@ st.markdown("""
   20%, 60% { transform: translateX(-5px); }
   40%, 80% { transform: translateX(5px); }
 }
-.shake-button {
+
+/* Aplicar temblor solo al primer botón */
+div.stButton > button:first-child {
     animation: shake 0.5s infinite;
     animation-delay: 3s;
 }
@@ -78,18 +80,13 @@ st.markdown("""
 if "clicked" not in st.session_state:
     st.session_state.clicked = False
 
-# --- Botón con temblor si no presionado ---
-if not st.session_state.clicked:
-    st.markdown('<button class="shake-button">😿</button>', unsafe_allow_html=True)
-else:
-    # Toggle normal
-    if st.button("😿"):
-        st.session_state.clicked = not st.session_state.clicked
+# --- Botón real de Streamlit ---
+if st.button("😿"):
+    st.session_state.clicked = not st.session_state.clicked
 
-# --- Mostrar texto en Neon si botón presionado ---
+# --- Mostrar texto neon si presionado ---
 if st.session_state.clicked:
     st.markdown("<h2 class='neon-text'>Yo tambien te amo 😻</h2>", unsafe_allow_html=True)
-
 # --- Columna derecha ---
 with col3:
     st.image("https://img1.picmix.com/output/pic/normal/2/5/7/0/10140752_792ad.gif", 
@@ -178,6 +175,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
