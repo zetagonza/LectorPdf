@@ -27,22 +27,24 @@ with col1:
     st.image("https://i.pinimg.com/originals/7f/9e/20/7f9e2048d80751987ec1101fd7142c3e.gif", 
              caption="uwu", 
              use_container_width=True)
+# CSS para NEON
+st.markdown("""
+<style>
+@keyframes neon {
+  0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de; }
+  50% { text-shadow: 0 0 20px #fff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+}
+.neon-text {
+  animation: neon 2s infinite;
+  text-align: center;
+  color: white;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # --- Columna central ---
 with col2:
-    st.markdown("## 🐱 App para vaguitas 🐱")
-    @keyframes rainbow {
-  0% { color: red; }
-  20% { color: orange; }
-  40% { color: yellow; }
-  60% { color: green; }
-  80% { color: blue; }
-  100% { color: violet; }
-}
-.rainbow-text {
-  animation: rainbow 3s infinite;
-  text-align: center;
-}
+    st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
     if "clicked" not in st.session_state:
         st.session_state.clicked = False
