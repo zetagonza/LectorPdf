@@ -7,39 +7,29 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #ffe6f2; /* Rosa claro */
-        color: black; /* Letras negras */
+        background-color: #ffe6f2; /* Fondo rosa claro */
     }
     h1 {
         color: #cc0066; /* Rosa fuerte para títulos */
         text-align: center;
     }
-    /* Estilo del botón */
-    div.stButton > button {
-        background-color: #ff3399;
-        color: white;
-        font-size: 30px; /* Aumenta tamaño */
+    /* Centrar el botón */
+    .stButton > button {
+        display: block;
+        margin: 0 auto;
+        font-size: 30px; /* Botón más grande */
+        padding: 15px 40px;
         border-radius: 12px;
-        padding: 15px 30px;
-        transition: all 0.3s ease;
+        background-color: #ff66b2;
+        color: white;
     }
-    div.stButton > button:hover {
-        background-color: #cc0066;
-        transform: scale(1.1); /* Efecto al pasar el mouse */
+    /* Animación para el texto */
+    .animated-text {
+        animation: fadeIn 2s ease-in-out infinite alternate;
     }
-    /* Animación del texto */
-    @keyframes heartbeat {
-        0% { transform: scale(1); }
-        25% { transform: scale(1.2); }
-        50% { transform: scale(1); }
-        75% { transform: scale(1.2); }
-        100% { transform: scale(1); }
-    }
-    .heartbeat {
-        animation: heartbeat 1s infinite;
-        font-size: 24px;
-        color: #cc0066;
-        text-align: center;
+    @keyframes fadeIn {
+        from {opacity: 0.3; transform: scale(0.95);}
+        to {opacity: 1; transform: scale(1.05);}
     }
     </style>
     """,
@@ -51,22 +41,22 @@ st.title("😼 App para vaguitas 😼")
 
 # ===== BOTÓN INTERACTIVO =====
 if st.button("💖"):
-    st.markdown("<p class='heartbeat'>yo tambien te amo 😻</p>", unsafe_allow_html=True)
+    st.markdown("<h3 class='animated-text'>yo tambien te amo 😻</h3>", unsafe_allow_html=True)
 else:
     st.info("😿")
 
-# ===== IMAGEN =====
+# ===== IMAGEN REDUCIDA =====
 st.image(
     "https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
-    caption="Ponete a laburar loco", 
-    use_container_width=True
+    caption=".",
+    width=250  # Ajustamos tamaño fijo
 )
 
 # ===== GIF =====
 st.image(
-    "https://media.tenor.com/tLXDg7z6p_UAAAAM/cat-love.gif", 
-    caption="Un gif de amor", 
-    use_container_width=True
+    "https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
+    caption="Ponete a laburar loco 🐱‍💻",
+    width=300
 )
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
@@ -151,6 +141,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
