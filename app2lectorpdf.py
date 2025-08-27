@@ -167,6 +167,9 @@ if uploaded_file is not None:
     # Crear DataFrame
     df = pd.DataFrame(rows, columns=["CUIT", "Jurisdiccion", "A favor Contribuyente"])
 
+    # 🔹 Quitar guiones de los CUIT
+    df["CUIT"] = df["CUIT"].str.replace("-", "", regex=False)
+
     # 🔹 Filtrar filas donde el 4º valor sea "$0,00"
     df = df[df["A favor Contribuyente"] != "$0,00"]
 
