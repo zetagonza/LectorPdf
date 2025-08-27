@@ -46,50 +46,31 @@ st.markdown("""
 with col2:
     st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
-# --- CSS para temblor y neon ---
+# --- CSS ---
 st.markdown("""
 <style>
-/* Temblor 2s cada 5s */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
-}
-
-.shake-button {
-    animation: shake 2s;
-    animation-iteration-count: 1;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
-}
-
-/* Hacer que el temblor reaparezca cada 5s */
-@keyframes shake-loop {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-5px); }
-    40%, 80% { transform: translateX(5px); }
-}
-
-.shake-loop {
-    animation: shake-loop 2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-delay: 5s;
-    animation-name: shake-loop;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-}
-
 /* Neon + respiración */
 @keyframes neon-breathe {
-  0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de; transform: scale(1);}
-  50% { text-shadow: 0 0 20px #fff, 0 0 30px #00ffff, 0 0 40px #00ffff; transform: scale(1.1);}
+  0%, 100% { text-shadow: 0 0 5px #fff,0 0 10px #ff00de,0 0 20px #ff00de; transform: scale(1);}
+  50% { text-shadow: 0 0 20px #fff,0 0 30px #00ffff,0 0 40px #00ffff; transform: scale(1.1);}
 }
 .neon-text {
     animation: neon-breathe 2s infinite;
     text-align: center;
     color: white;
     font-weight: bold;
+}
+
+/* Temblor 2s cada 5s */
+@keyframes shake {
+  0%,100% { transform: translateX(0);}
+  20%,60% { transform: translateX(-5px);}
+  40%,80% { transform: translateX(5px);}
+}
+
+div.stButton > button {
+    animation: shake 2s ease-in-out infinite;
+    animation-delay: 5s;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -101,14 +82,10 @@ if "clicked" not in st.session_state:
 # --- Botón centrado ---
 col1, col2, col3 = st.columns([1,2,1])
 with col2:
-    if st.session_state.clicked:
-        if st.button("😿"):
-            st.session_state.clicked = not st.session_state.clicked
-    else:
-        # Botón con clase CSS shake-loop
-        st.markdown('<div style="text-align:center"><button class="shake-loop">😿</button></div>', unsafe_allow_html=True)
+    if st.button("😿"):
+        st.session_state.clicked = not st.session_state.clicked
 
-# --- Mostrar texto neon si presionado ---
+# --- Texto neon ---
 if st.session_state.clicked:
     st.markdown("<h2 class='neon-text'>Yo tambien te amo 😻</h2>", unsafe_allow_html=True)
 # --- Columna derecha ---
@@ -199,6 +176,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
