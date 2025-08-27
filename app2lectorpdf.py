@@ -8,9 +8,38 @@ st.markdown(
     <style>
     .stApp {
         background-color: #ffe6f2; /* Rosa claro */
+        color: black; /* Letras negras */
     }
     h1 {
         color: #cc0066; /* Rosa fuerte para títulos */
+        text-align: center;
+    }
+    /* Estilo del botón */
+    div.stButton > button {
+        background-color: #ff3399;
+        color: white;
+        font-size: 30px; /* Aumenta tamaño */
+        border-radius: 12px;
+        padding: 15px 30px;
+        transition: all 0.3s ease;
+    }
+    div.stButton > button:hover {
+        background-color: #cc0066;
+        transform: scale(1.1); /* Efecto al pasar el mouse */
+    }
+    /* Animación del texto */
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.2); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    .heartbeat {
+        animation: heartbeat 1s infinite;
+        font-size: 24px;
+        color: #cc0066;
+        text-align: center;
     }
     </style>
     """,
@@ -22,17 +51,23 @@ st.title("😼 App para vaguitas 😼")
 
 # ===== BOTÓN INTERACTIVO =====
 if st.button("💖"):
-    st.success("yo tambien te amo 😻")
+    st.markdown("<p class='heartbeat'>yo tambien te amo 😻</p>", unsafe_allow_html=True)
 else:
     st.info("😿")
 
 # ===== IMAGEN =====
-# Desde URL
-st.image("https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
-         caption="Ponete a laburar loco", use_container_width=True)
+st.image(
+    "https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
+    caption="Ponete a laburar loco", 
+    use_container_width=True
+)
 
-# También podés cargar imágenes locales, ej:
-# st.image("mi_imagen.png", caption="Imagen local", use_column_width=True)
+# ===== GIF =====
+st.image(
+    "https://media.tenor.com/tLXDg7z6p_UAAAAM/cat-love.gif", 
+    caption="Un gif de amor", 
+    use_container_width=True
+)
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
 # Subir PDF
@@ -116,5 +151,6 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
