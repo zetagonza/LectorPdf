@@ -29,7 +29,7 @@ else:
 # ===== IMAGEN =====
 # Desde URL
 st.image("https://2.bp.blogspot.com/-H-mgyhPyol8/TfJsfL9qusI/AAAAAAAAADM/gbZ3hRKdxnw/s1600/gato+bebiendo+vino.jpg",
-         caption="Ponete a laburar loco", use_column_width=True)
+         caption="Ponete a laburar loco", use_container_width=True)
 
 # También podés cargar imágenes locales, ej:
 # st.image("mi_imagen.png", caption="Imagen local", use_column_width=True)
@@ -116,4 +116,5 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
