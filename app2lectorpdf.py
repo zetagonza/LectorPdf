@@ -40,11 +40,24 @@ with col2:
 
     if st.session_state.clicked:
         st.markdown(
-            "<h2 style='animation: pulse 1s infinite;'>Yo tambien te amo 😻</h2>",
+            """
+            <style>
+            @keyframes pulse {
+                0% { transform: scale(1); color: black; }
+                50% { transform: scale(1.2); color: black; }
+                100% { transform: scale(1); color: black; }
+            }
+            .pulse-text {
+                animation: pulse 1s infinite;
+                text-align: center;
+            }
+            </style>
+            <h2 class='pulse-text'>Yo tambien te amo 😻</h2>
+            """,
             unsafe_allow_html=True,
         )
         st.image("https://gifdb.com/images/high/working-cat-doing-fast-typing-or3mww33tjy9zu5y.gif",
-                 caption="uwu",
+                 caption="Ponete a laburar loco",
                  width=250)
 
 # --- Columna derecha ---
@@ -135,6 +148,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
