@@ -90,7 +90,7 @@ if st.session_state.clicked:
     st.markdown("<h2 class='neon-text'>Yo tambien te amo 😻</h2>", unsafe_allow_html=True)
     st.image(
         "https://i.pinimg.com/originals/cd/f3/0b/cdf30b78e8754b1499f2de9d5a63a8fb.gif",
-        width=250,
+        width=500,
         caption="Ponete a laburar loco"
     )
 # --- Columna derecha ---
@@ -181,6 +181,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
