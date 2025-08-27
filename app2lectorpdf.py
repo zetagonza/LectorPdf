@@ -46,18 +46,30 @@ st.markdown("""
 with col2:
     st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
-# --- CSS para temblor de botón ---
+# --- CSS para temblor de botón y neon con respiración ---
 st.markdown("""
 <style>
+/* Temblor */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-5px); }
   40%, 80% { transform: translateX(5px); }
 }
-
 .shake-button {
     animation: shake 0.5s infinite;
     animation-delay: 3s;
+}
+
+/* Neon + respiración */
+@keyframes neon-breathe {
+  0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de; transform: scale(1);}
+  50% { text-shadow: 0 0 20px #fff, 0 0 30px #00ffff, 0 0 40px #00ffff; transform: scale(1.1);}
+}
+.neon-text {
+    animation: neon-breathe 2s infinite;
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -66,12 +78,17 @@ st.markdown("""
 if "clicked" not in st.session_state:
     st.session_state.clicked = False
 
-# --- Botón con animación si no fue presionado ---
+# --- Botón con temblor si no presionado ---
 if not st.session_state.clicked:
     st.markdown('<button class="shake-button">😿</button>', unsafe_allow_html=True)
 else:
+    # Toggle normal
     if st.button("😿"):
         st.session_state.clicked = not st.session_state.clicked
+
+# --- Mostrar texto en Neon si botón presionado ---
+if st.session_state.clicked:
+    st.markdown("<h2 class='neon-text'>Yo tambien te amo 😻</h2>", unsafe_allow_html=True)
 
 # --- Columna derecha ---
 with col3:
@@ -161,6 +178,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
