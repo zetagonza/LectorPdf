@@ -31,6 +31,18 @@ with col1:
 # --- Columna central ---
 with col2:
     st.markdown("## 🐱 App para vaguitas 🐱")
+    @keyframes rainbow {
+  0% { color: red; }
+  20% { color: orange; }
+  40% { color: yellow; }
+  60% { color: green; }
+  80% { color: blue; }
+  100% { color: violet; }
+}
+.rainbow-text {
+  animation: rainbow 3s infinite;
+  text-align: center;
+}
     
     if "clicked" not in st.session_state:
         st.session_state.clicked = False
@@ -148,6 +160,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
