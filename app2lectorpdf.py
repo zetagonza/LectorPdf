@@ -46,11 +46,35 @@ st.markdown("""
 with col2:
     st.markdown("<h2 class='neon-text'>🐱 App para vaguitas 🐱</h2>", unsafe_allow_html=True)
     
-    if "clicked" not in st.session_state:
-        st.session_state.clicked = False
+  # --- CSS para el temblor ---
+st.markdown("""
+<style>
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
 
+/* Aplica la animación a los botones solo si no están presionados */
+button.shake-button {
+    animation: shake 0.5s infinite;
+    animation-delay: 3s; /* comienza cada 3 segundos */
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- Botón con temblor si no está presionado ---
+if "clicked" not in st.session_state:
+    st.session_state.clicked = False
+
+if not st.session_state.clicked:
+    # Botón con clase CSS 'shake-button'
+    st.markdown('<button class="shake-button">😿</button>', unsafe_allow_html=True)
+else:
+    # Botón normal toggle
     if st.button("😿"):
-        st.session_state.clicked = not st.session_state.clicked  # toggle
+        st.session_state.clicked = not st.session_state.clicked
+
 
     if st.session_state.clicked:
         st.markdown(
@@ -162,6 +186,7 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
 
 
 
