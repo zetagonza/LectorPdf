@@ -196,10 +196,10 @@ if uploaded_file is not None:
 # =====================================================
 # 📌 SECCIÓN EXTRACCIÓN CUIT (solo > $99.999,00)
 # =====================================================
-st.title("Extracción de CUIT, Jurisdicción y nose que cosa (solo > $99.999,00)")
+st.title("(solo > $99.999,00)")
 
 # Subir PDF
-uploaded_file_alt = st.file_uploader("Poner aca el PDF (saldos > $99.999,00)", type=["pdf"], key="pdf_alt")
+uploaded_file_alt = st.file_uploader("Tabla solo con saldos > $99.999,00)", type=["pdf"], key="pdf_alt")
 
 if uploaded_file_alt is not None:
     # Leer PDF con PyMuPDF
@@ -324,6 +324,7 @@ if uploaded_files:
         file_name="pdf_unido.pdf",
         mime="application/pdf"
     )
+
 
 
 
