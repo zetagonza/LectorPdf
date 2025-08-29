@@ -193,6 +193,106 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+# =====================================================
+# 📌 SECCIÓN EXTRACCIÓN CUIT (solo > $99.999,00)
+# =====================================================
+st.title("Extracción de CUIT, Jurisdicción y nose que cosa (solo > $99.999,00)")
+
+# Subir PDF
+uploaded_file_alt = st.file_uploader("Poner aca el PDF (saldos > $99.999,00)", type=["pdf"], key="pdf_alt")
+
+if uploaded_file_alt is not None:
+    # Leer PDF con PyMuPDF
+    doc_alt = fitz.open(stream=uploaded_file_alt.read(), filetype="pdf")
+
+    # Extraer texto crudo
+    lines_alt = []
+    for i_alt, page_alt in enumerate(doc_alt):
+        text_alt = page_alt.get_text()
+        lines_alt.append(f"--- Página {i_alt+1} ---")
+        lines_alt.extend(text_alt.splitlines())
+
+    # Limpiar líneas vacías
+    lines_alt = [line.strip() for line in lines_alt if line.strip()]
+
+    # Procesar bloques
+    rows_alt = []
+    i_alt = 0
+    cuit_alt = None
+
+    while i_alt < len(lines_alt):
+        line_alt = lines_alt[i_alt]
+
+        # Detectar inicio de página y resetear CUIT
+        if line_alt.startswith("--- Página"):
+            cuit_alt = None
+            i_alt += 1
+            continue
+
+        # Buscar CUIT
+        if not cuit_alt:
+            cuit_match_alt = re.match(r'\d{2}-\d{8}-\d', line_alt)
+            if cuit_match_alt:
+                cuit_alt = cuit_match_alt.group()
+                i_alt += 1
+                continue
+
+        # Buscar código de jurisdicción
+        if re.match(r'^\d{3}$', line_alt):
+            codigo_alt = line_alt
+            valores_alt = []
+            j_alt = i_alt + 1
+            # Recorrer siguientes líneas hasta capturar 6 valores monetarios
+            while j_alt < len(lines_alt) and len(valores_alt) < 6:
+                if lines_alt[j_alt].startswith("$"):
+                    valores_alt.append(lines_alt[j_alt])
+                j_alt += 1
+
+            # La provincia es la línea siguiente al último valor
+            provincia_alt = lines_alt[j_alt] if j_alt < len(lines_alt) else ""
+
+            # Tomar el 4º valor si hay al menos 4
+            if len(valores_alt) >= 4:
+                valor_4_alt = valores_alt[3]
+                rows_alt.append([cuit_alt, provincia_alt, valor_4_alt])
+
+            # Avanzar el índice al final del bloque
+            i_alt = j_alt + 1
+            continue
+
+        i_alt += 1
+
+    # Crear DataFrame
+    df_alt = pd.DataFrame(rows_alt, columns=["CUIT", "Jurisdiccion", "A favor Contribuyente"])
+
+    # Quitar guiones de los CUIT
+    df_alt["CUIT"] = df_alt["CUIT"].str.replace("-", "", regex=False)
+
+    # 👉 Filtrar solo montos > $99.999,00
+    # Creamos una columna numérica auxiliar para filtrar y luego la eliminamos
+    df_alt["_monto_num"] = (
+        df_alt["A favor Contribuyente"]
+        .str.replace("$", "", regex=False)
+        .str.replace(".", "", regex=False)   # quitar separador de miles
+        .str.replace(",", ".", regex=False)  # convertir decimal a punto
+        .astype(float)
+    )
+    df_alt = df_alt[df_alt["_monto_num"] > 99999]
+    df_alt = df_alt.drop(columns=["_monto_num"])
+
+    st.subheader("Datos extraídos (solo saldos > $99.999,00)")
+    st.dataframe(df_alt)
+
+    # Botón para descargar CSV
+    csv_alt = df_alt.to_csv(index=False, encoding="utf-8-sig")
+    st.download_button(
+        label="Descargar CSV (saldos > 99.999,00)",
+        data=csv_alt,
+        file_name="resultado_mayores_99999.csv",
+        mime="text/csv"
+    )
+
+
 
 # =====================================================
 # 📌 SECCIÓN UNIR PDFS
@@ -224,6 +324,7 @@ if uploaded_files:
         file_name="pdf_unido.pdf",
         mime="application/pdf"
     )
+
 
 
 
