@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import fitz  # PyMuPDF
 import re
+from PyPDF2 import PdfMerger   # 👉 Necesario para unir PDFs
+import io
+
 # --- Estilo CSS para el fondo rosa y textos negros ---
 st.markdown(
     """
@@ -27,6 +30,7 @@ with col1:
     st.image("https://i.pinimg.com/originals/7f/9e/20/7f9e2048d80751987ec1101fd7142c3e.gif", 
              caption="uwu", 
              use_container_width=True)
+
 # CSS para NEON
 st.markdown("""
 <style>
@@ -93,11 +97,16 @@ if st.session_state.clicked:
         width=500,
         caption="Ponete a laburar loco"
     )
+
 # --- Columna derecha ---
 with col3:
     st.image("https://img1.picmix.com/output/pic/normal/2/5/7/0/10140752_792ad.gif", 
              caption="💗", 
              use_container_width=True)
+
+# =====================================================
+# 📌 SECCIÓN EXTRACCIÓN CUIT
+# =====================================================
 st.title("Extracción de CUIT, Jurisdicción y nose que cosa")
 
 # Subir PDF
@@ -184,6 +193,38 @@ if uploaded_file is not None:
         file_name="resultado.csv",
         mime="text/csv"
     )
+
+# =====================================================
+# 📌 SECCIÓN UNIR PDFS
+# =====================================================
+st.title("Unir varios PDFs en uno solo")
+
+uploaded_files = st.file_uploader(
+    "Unir PDF's",
+    type=["pdf"],
+    accept_multiple_files=True
+)
+
+if uploaded_files:
+    merger = PdfMerger()
+
+    for uploaded_file in uploaded_files:
+        merger.append(uploaded_file)
+
+    # Guardar en buffer
+    merged_pdf = io.BytesIO()
+    merger.write(merged_pdf)
+    merger.close()
+    merged_pdf.seek(0)
+
+    st.success("✅ PDFs unidos correctamente")
+    st.download_button(
+        label="📥 Descargar PDF unido",
+        data=merged_pdf,
+        file_name="pdf_unido.pdf",
+        mime="application/pdf"
+    )
+
 
 
 
