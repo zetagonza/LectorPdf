@@ -1,3 +1,11 @@
+import streamlit as st
+import pandas as pd
+import fitz  # PyMuPDF
+import re
+from PyPDF2 import PdfMerger
+merger = PdfMerger()
+import io
+
 # =====================================================
 # 📌 SECCIÓN UNIR PDFS
 # =====================================================
@@ -116,6 +124,7 @@ if uploaded_file_2 is not None:
         file_name="resultado_saldos_altos.csv",
         mime="text/csv"
     )
+
 
 
 
