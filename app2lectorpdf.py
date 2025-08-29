@@ -3,9 +3,8 @@ import pandas as pd
 import fitz  # PyMuPDF
 import re
 from PyPDF2 import PdfMerger
-from PyPDF2 import PdfFileMerger
+merger = PdfMerger()
 import io
-merger = PdfFileMerger()
 # --- Estilo CSS para el fondo rosa y textos negros ---
 st.markdown(
     """
@@ -225,6 +224,7 @@ if uploaded_files:
         file_name="pdf_unido.pdf",
         mime="application/pdf"
     )
+
 
 
 
